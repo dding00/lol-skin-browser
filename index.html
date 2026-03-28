@@ -5,145 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LoL Skin Color Browser</title>
   <style>
-    /* ─── Reset & Base ─────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a1a;
-      --surface: #12122a;
-      --surface-hover: #1a1a3a;
-      --border: #2a2a4a;
-      --text: #e0e0f0;
-      --text-dim: #8888aa;
-      --accent: #6c5ce7;
-      --accent-glow: rgba(108, 92, 231, 0.3);
+      --bg: #0a0a1a; --surface: #12122a; --surface-hover: #1a1a3a;
+      --border: #2a2a4a; --text: #e0e0f0; --text-dim: #8888aa;
+      --accent: #6c5ce7; --accent-glow: rgba(108, 92, 231, 0.3);
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .logo { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #6c5ce7, #a29bfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .stats { font-size: 13px; color: var(--text-dim); }
     .stats span { color: var(--accent); font-weight: 600; }
-
     .channel-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
-    .channel-tab {
-      padding: 8px 20px; border: 1px solid var(--border); border-radius: 8px;
-      background: transparent; color: var(--text-dim); cursor: pointer;
-      font-size: 14px; font-weight: 500; transition: all 0.2s;
-    }
+    .channel-tab { padding: 8px 20px; border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.2s; }
     .channel-tab:hover { border-color: var(--accent); color: var(--text); }
     .channel-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 12px var(--accent-glow); }
-
-    .search-bar {
-      width: 100%; padding: 10px 16px; border: 1px solid var(--border);
-      border-radius: 8px; background: var(--bg); color: var(--text);
-      font-size: 14px; margin-bottom: 12px; outline: none; transition: border-color 0.2s;
-    }
+    .search-bar { width: 100%; padding: 10px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; margin-bottom: 12px; outline: none; transition: border-color 0.2s; }
     .search-bar:focus { border-color: var(--accent); }
     .search-bar::placeholder { color: var(--text-dim); }
-
     .filter-section { margin-bottom: 8px; }
     .filter-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); margin-bottom: 6px; }
     .filter-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-
-    .filter-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px;
-      background: transparent; color: var(--text-dim); cursor: pointer;
-      font-size: 13px; transition: all 0.2s; white-space: nowrap;
-    }
+    .filter-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 13px; transition: all 0.2s; white-space: nowrap; }
     .filter-btn:hover { border-color: var(--text-dim); color: var(--text); }
     .filter-btn.active { border-color: var(--accent); background: rgba(108, 92, 231, 0.15); color: var(--text); }
-
-    .color-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-      display: inline-block; border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .filter-clear {
-      padding: 6px 14px; border: 1px dashed var(--border); border-radius: 20px;
-      background: transparent; color: var(--text-dim); cursor: pointer;
-      font-size: 13px; transition: all 0.2s;
-    }
+    .color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255,255,255,0.2); }
+    .filter-clear { padding: 6px 14px; border: 1px dashed var(--border); border-radius: 20px; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 13px; transition: all 0.2s; }
     .filter-clear:hover { border-color: #e74c3c; color: #e74c3c; }
-
     .grid-container { padding: 20px 24px; }
-    .skin-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .skin-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden; transition: all 0.25s; cursor: pointer;
-    }
-    .skin-card:hover {
-      border-color: var(--accent); transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
+    .skin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .skin-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.25s; cursor: pointer; }
+    .skin-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
     .card-thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #1a1a2e; }
     .card-body { padding: 12px 14px; }
     .card-skin-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
     .card-meta { font-size: 12px; color: var(--text-dim); margin-bottom: 8px; }
     .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-
-    .tag-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
-      background: rgba(255,255,255,0.06); color: var(--text-dim);
-    }
+    .tag-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; background: rgba(255,255,255,0.06); color: var(--text-dim); }
     .tag-badge .color-dot { width: 8px; height: 8px; }
     .untagged-badge { padding: 2px 10px; border-radius: 12px; font-size: 11px; background: rgba(255, 165, 0, 0.15); color: #ffa500; }
-
     .loading, .empty-state, .error-state { text-align: center; padding: 80px 20px; color: var(--text-dim); }
-    .loading-spinner {
-      width: 40px; height: 40px; border: 3px solid var(--border);
-      border-top-color: var(--accent); border-radius: 50%;
-      animation: spin 0.8s linear infinite; margin: 0 auto 16px;
-    }
+    .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
     .error-state { color: #e74c3c; }
-
-    .config-banner {
-      background: linear-gradient(135deg, rgba(108, 92, 231, 0.2), rgba(162, 155, 254, 0.1));
-      border: 1px solid var(--accent); border-radius: 12px;
-      padding: 24px; margin: 24px; text-align: center;
-    }
-    .config-banner h2 { margin-bottom: 8px; font-size: 18px; }
-    .config-banner p { color: var(--text-dim); font-size: 14px; margin-bottom: 16px; }
-    .config-banner code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 13px; color: var(--accent); }
-
     @media (max-width: 640px) {
       .header { padding: 12px 16px; }
       .grid-container { padding: 16px; }
@@ -152,7 +58,6 @@
   </style>
 </head>
 <body>
-
   <div class="header">
     <div class="header-top">
       <div class="logo">🎨 LoL Skin Color Browser</div>
@@ -177,7 +82,6 @@
       <div class="filter-row" id="textureFilters"></div>
     </div>
   </div>
-
   <div class="grid-container">
     <div id="content">
       <div class="loading">
@@ -186,23 +90,17 @@
       </div>
     </div>
   </div>
-
   <script>
-    const SHEET_ID = '1LeRORs4mpImmFqp0fFWHwUfmpYgYehX0-KIueM9WjH8';
-    const SHEET_NAME = 'skin_data';
+    // 구글 시트 CSV URL (웹에 게시된 CSV)
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQGbialRQVsXTV9IuI-m697B3TUlACzs1yTE1Q0Yt7C-COlibPGt1PdoDKs8i7ydRVfMh8boGc4SjxW/pub?gid=5412851&single=true&output=csv';
 
     const COLOR_MAP = {
-      '보라':   { color: '#9b59b6' },
-      '금/황금': { color: '#f1c40f' },
-      '파랑':   { color: '#3498db' },
-      '빨강':   { color: '#e74c3c' },
-      '분홍':   { color: '#e84393' },
-      '초록':   { color: '#2ecc71' },
-      '주황':   { color: '#e67e22' },
-      '흰/은':  { color: '#ecf0f1' },
+      '보라':   { color: '#9b59b6' }, '금/황금': { color: '#f1c40f' },
+      '파랑':   { color: '#3498db' }, '빨강':   { color: '#e74c3c' },
+      '분홍':   { color: '#e84393' }, '초록':   { color: '#2ecc71' },
+      '주황':   { color: '#e67e22' }, '흰/은':  { color: '#ecf0f1' },
       '검정':   { color: '#2c3e50' }
     };
-
     const COMBO_TAGS = ['보라+파랑','금+흰','빨강+검정','파랑+흰','초록+금','주황+빨강','보라+분홍','흰+은+파랑'];
     const TEXTURE_TAGS = ['네온','반짝이','메탈릭','파스텔','자연/유기'];
 
@@ -215,25 +113,18 @@
 
     async function loadData() {
       try {
-        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
-        const res = await fetch(url);
+        const res = await fetch(CSV_URL);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const text = await res.text();
-        const jsonStr = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
-        if (!jsonStr) throw new Error('시트 데이터를 파싱할 수 없습니다.');
-        const json = JSON.parse(jsonStr[1]);
-        const cols = json.table.cols.map(c => c.label);
-        const rows = json.table.rows;
-        allSkins = rows.map(row => {
+        const lines = text.split('\n').filter(l => l.trim());
+        if (lines.length < 2) throw new Error('데이터가 없습니다.');
+        const headers = parseCSVLine(lines[0]);
+        allSkins = lines.slice(1).map(line => {
+          const values = parseCSVLine(line);
           const obj = {};
-          cols.forEach((col, i) => {
-            const cell = row.c[i];
-            if (!cell) { obj[col] = ''; return; }
-            if (cell.f) obj[col] = cell.f;
-            else if (cell.v !== null && cell.v !== undefined) obj[col] = cell.v;
-            else obj[col] = '';
-          });
+          headers.forEach((h, i) => { obj[h.trim()] = (values[i] || '').trim(); });
           return obj;
-        });
+        }).filter(s => s.skin_name);
         renderFilters();
         applyFilters();
       } catch (err) {
@@ -245,6 +136,20 @@
             <div style="font-size:13px;color:var(--text-dim);margin-top:8px">구글 시트가 <strong>"웹에 게시"</strong> 되어 있는지 확인하세요.</div>
           </div>`;
       }
+    }
+
+    function parseCSVLine(line) {
+      const result = []; let current = ''; let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          if (inQuotes && line[i+1] === '"') { current += '"'; i++; }
+          else { inQuotes = !inQuotes; }
+        } else if (ch === ',' && !inQuotes) { result.push(current); current = ''; }
+        else if (ch !== '\r') { current += ch; }
+      }
+      result.push(current);
+      return result;
     }
 
     function renderFilters() {
@@ -260,16 +165,15 @@
       for (const tag of COMBO_TAGS) {
         const firstPart = tag.split('+')[0];
         const key = Object.keys(COLOR_MAP).find(k => k.startsWith(firstPart));
-        const color = key ? COLOR_MAP[key].color : '#888';
-        comboContainer.appendChild(createFilterBtn(tag, color, 'combo'));
+        comboContainer.appendChild(createFilterBtn(tag, key ? COLOR_MAP[key].color : '#888', 'combo'));
       }
       comboContainer.appendChild(createClearBtn('combo'));
 
       const textureContainer = document.getElementById('textureFilters');
       textureContainer.innerHTML = '';
-      const textureColors = { '네온': '#39ff14', '반짝이': '#ffd700', '메탈릭': '#c0c0c0', '파스텔': '#ffb6c1', '자연/유기': '#8fbc8f' };
+      const tc = { '네온':'#39ff14','반짝이':'#ffd700','메탈릭':'#c0c0c0','파스텔':'#ffb6c1','자연/유기':'#8fbc8f' };
       for (const tag of TEXTURE_TAGS) {
-        textureContainer.appendChild(createFilterBtn(tag, textureColors[tag] || '#888', 'texture'));
+        textureContainer.appendChild(createFilterBtn(tag, tc[tag]||'#888', 'texture'));
       }
       textureContainer.appendChild(createClearBtn('texture'));
     }
@@ -279,7 +183,7 @@
       btn.className = 'filter-btn';
       btn.innerHTML = `<span class="color-dot" style="background:${color}"></span>${tag}`;
       btn.addEventListener('click', () => {
-        const set = type === 'main' ? activeMainFilters : type === 'combo' ? activeComboFilters : activeTextureFilters;
+        const set = type==='main'?activeMainFilters:type==='combo'?activeComboFilters:activeTextureFilters;
         if (set.has(tag)) { set.delete(tag); btn.classList.remove('active'); }
         else { set.add(tag); btn.classList.add('active'); }
         applyFilters();
@@ -292,7 +196,7 @@
       btn.className = 'filter-clear';
       btn.textContent = '초기화';
       btn.addEventListener('click', () => {
-        const set = type === 'main' ? activeMainFilters : type === 'combo' ? activeComboFilters : activeTextureFilters;
+        const set = type==='main'?activeMainFilters:type==='combo'?activeComboFilters:activeTextureFilters;
         set.clear();
         btn.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         applyFilters();
@@ -306,14 +210,14 @@
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         filtered = filtered.filter(s =>
-          (s.skin_name || '').toLowerCase().includes(q) ||
-          (s.champion || '').toLowerCase().includes(q) ||
-          (s.theme_series || '').toLowerCase().includes(q)
+          (s.skin_name||'').toLowerCase().includes(q) ||
+          (s.champion||'').toLowerCase().includes(q) ||
+          (s.theme_series||'').toLowerCase().includes(q)
         );
       }
       if (activeMainFilters.size > 0) {
         filtered = filtered.filter(s => {
-          const tags = (s.color_main || '').split(',').map(t => t.trim());
+          const tags = (s.color_main||'').split(',').map(t=>t.trim());
           return [...activeMainFilters].every(f => tags.includes(f));
         });
       }
@@ -336,16 +240,15 @@
         const videoUrl = skin.video_url || '#';
         const name = skin.skin_name || '이름 없음';
         const meta = [skin.champion, skin.theme_series].filter(Boolean).join(' · ');
-        html += `
-          <div class="skin-card" onclick="window.open('${videoUrl}', '_blank')">
-            <img class="card-thumb" src="${thumb}" alt="${name}" loading="lazy"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 320 180%22><rect fill=%22%231a1a2e%22 width=%22320%22 height=%22180%22/><text fill=%22%23555%22 font-size=%2214%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22>No Image</text></svg>'">
-            <div class="card-body">
-              <div class="card-skin-name">${name}</div>
-              <div class="card-meta">${meta}</div>
-              <div class="card-tags">${tags}</div>
-            </div>
-          </div>`;
+        html += `<div class="skin-card" onclick="window.open('${videoUrl}','_blank')">
+          <img class="card-thumb" src="${thumb}" alt="${name}" loading="lazy"
+               onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 320 180%22><rect fill=%22%231a1a2e%22 width=%22320%22 height=%22180%22/><text fill=%22%23555%22 font-size=%2214%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22>No Image</text></svg>'">
+          <div class="card-body">
+            <div class="card-skin-name">${name}</div>
+            <div class="card-meta">${meta}</div>
+            <div class="card-tags">${tags}</div>
+          </div>
+        </div>`;
       }
       html += '</div>';
       container.innerHTML = html;
@@ -353,9 +256,9 @@
 
     function buildTagBadges(skin) {
       const badges = [];
-      if (!skin.color_tagged && !skin.color_main) return '<span class="untagged-badge">미태깅</span>';
+      if (!skin.color_main && !skin.color_combo && !skin.color_texture) return '<span class="untagged-badge">미태깅</span>';
       if (skin.color_main) {
-        skin.color_main.split(',').map(t => t.trim()).filter(Boolean).forEach(tag => {
+        skin.color_main.split(',').map(t=>t.trim()).filter(Boolean).forEach(tag => {
           const info = COLOR_MAP[tag];
           if (info) badges.push(`<span class="tag-badge"><span class="color-dot" style="background:${info.color}"></span>${tag}</span>`);
         });
@@ -366,7 +269,7 @@
     }
 
     function updateStats(shown, total) {
-      const tagged = allSkins.filter(s => s.color_tagged || s.color_main).length;
+      const tagged = allSkins.filter(s => s.color_main || s.color_combo).length;
       document.getElementById('stats').innerHTML =
         `표시: <span>${shown}</span> / 전체: <span>${total}</span> · 태깅 완료: <span>${tagged}</span>`;
     }
@@ -380,7 +283,7 @@
       });
     });
 
-    document.getElementById('searchInput').addEventListener('input', (e) => {
+    document.getElementById('searchInput').addEventListener('input', e => {
       searchQuery = e.target.value;
       applyFilters();
     });
