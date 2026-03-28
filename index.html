@@ -458,20 +458,20 @@
     const SHEET_NAME = 'skin_data';
 
     // ─── 색상 태그 정의 ──────────────────────────
-    const COLOR_MAP = {
-      '보라':     { color: '#9b59b6', label: '보라' },
-      '금/황금':   { color: '#f1c40f', label: '금/황금' },
-      '파랑':     { color: '#3498db', label: '파랑' },
+        const COLOR_MAP = {
       '빨강':     { color: '#e74c3c', label: '빨강' },
-      '분홍':     { color: '#e84393', label: '분홍' },
-      '초록':     { color: '#2ecc71', label: '초록' },
       '주황':     { color: '#e67e22', label: '주황' },
+      '초록':     { color: '#2ecc71', label: '초록' },
+      '파랑':     { color: '#3498db', label: '파랑' },
+      '보라':     { color: '#9b59b6', label: '보라' },
+      '분홈':     { color: '#e84393', label: '분홈' },
+      '금/황금':   { color: '#f1c40f', label: '금/황금' },
       '흰/은':    { color: '#ecf0f1', label: '흰/은' },
       '검정':     { color: '#2c3e50', label: '검정' }
     };
 
-    const COMBO_TAGS = ['보라+파랑','금+흰','빨강+검정','파랑+흰','초록+금','주황+빨강','보라+분홍','흰+은+파랑'];
-    const TEXTURE_TAGS = ['네온','반짝이','메탈릭','파스텔','자연/유기'];
+    const COMBO_TAGS = ['빨강+검정','주황+빨강','초록+금','파랑+흰','흰+은+파랑','보라+파랑','보라+분홍','금+흰'];
+                const TEXTURE_TAGS = ['네온','반짝이','메탈릭','파스텔','자연','물'];
 
     // ─── 상태 ────────────────────────────────────
     let allSkins = [];
@@ -589,7 +589,7 @@
       textureContainer.innerHTML = '';
       const textureColors = {
         '네온': '#39ff14', '반짝이': '#ffd700', '메탈릭': '#c0c0c0',
-        '파스텔': '#ffb6c1', '자연/유기': '#8fbc8f'
+        '파스텔': '#ffb6c1', '자연': '#8fbc8f', '물': '#48cae4'
       };
       for (const tag of TEXTURE_TAGS) {
         textureContainer.appendChild(createFilterBtn(tag, textureColors[tag] || '#888', 'texture'));
