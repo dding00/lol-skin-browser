@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LoL Skin Color Browser</title>
+  <title>LOL & WR Reference</title>
   <style>
     /* ─── Reset & Base ─────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,6 +115,47 @@
     }
 
     /* ─── Filter Section ───────────────────────── */
+    .filters-wrapper {
+      overflow: hidden;
+      max-height: 300px;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .filters-wrapper.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    .filter-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .filter-toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .filter-toggle-arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .filters-wrapper.collapsed ~ * .filter-toggle-arrow,
+    .filter-toggle-btn.collapsed .filter-toggle-arrow {
+      transform: rotate(180deg);
+    }
+
     .filter-section {
       margin-bottom: 8px;
     }
@@ -349,7 +390,7 @@
   <!-- Header -->
   <div class="header">
     <div class="header-top">
-      <div class="logo">🎨 LoL Skin Color Browser</div>
+      <div class="logo">LOL & WR Reference</div>
       <div class="stats" id="stats"></div>
     </div>
 
@@ -360,25 +401,32 @@
       <button class="channel-tab" data-channel="WildRift">Wild Rift</button>
     </div>
 
-    <!-- Search -->
-    <input type="text" class="search-bar" id="searchInput" placeholder="스킨명, 챔피언, 테마 검색...">
+    <!-- Search + Filter Toggle -->
+    <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px;">
+      <input type="text" class="search-bar" id="searchInput" placeholder="스킨명, 챔피언, 테마 검색..." style="margin-bottom:0; flex:1;">
+      <button class="filter-toggle-btn" id="filterToggleBtn" onclick="toggleFilters()">
+        필터 <span class="filter-toggle-arrow" id="filterArrow">▲</span>
+      </button>
+    </div>
 
     <!-- Color Filters -->
-    <div class="filter-section">
-      <div class="filter-label">단색 태그</div>
-      <div class="filter-row" id="mainFilters"></div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">분위기 조합</div>
-      <div class="filter-row" id="comboFilters"></div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">특수 효과</div>
-      <div class="filter-row" id="textureFilters"></div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">출시 연도</div>
-      <div class="filter-row" id="yearFilters"></div>
+    <div class="filters-wrapper" id="filtersWrapper">
+      <div class="filter-section">
+        <div class="filter-label">단색 태그</div>
+        <div class="filter-row" id="mainFilters"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">분위기 조합</div>
+        <div class="filter-row" id="comboFilters"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">특수 효과</div>
+        <div class="filter-row" id="textureFilters"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">출시 연도</div>
+        <div class="filter-row" id="yearFilters"></div>
+      </div>
     </div>
   </div>
 
@@ -748,6 +796,16 @@
       searchQuery = e.target.value;
       applyFilters();
     });
+
+    // ============================================================
+    // 필터 접기/펼치기
+    // ============================================================
+    function toggleFilters() {
+      const wrapper = document.getElementById('filtersWrapper');
+      const arrow = document.getElementById('filterArrow');
+      const isCollapsed = wrapper.classList.toggle('collapsed');
+      arrow.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
 
     // ============================================================
     // 시작
